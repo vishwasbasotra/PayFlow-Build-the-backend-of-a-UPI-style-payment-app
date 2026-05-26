@@ -10,4 +10,8 @@ public interface UserService {
     UserDTO registerUser(@Valid UserDTO userDTO);
 
     UserResponse getAllUsers(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+    UserDTO findUserByUserId(Long userId);
+
+    UserDTO findUserByUpiId(String upiId);
 }

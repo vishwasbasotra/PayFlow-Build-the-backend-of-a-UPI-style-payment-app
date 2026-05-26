@@ -1,6 +1,9 @@
 package com.payflow.service;
 
-import org.springframework.stereotype.Service;
+import com.payflow.payload.TransactionDTO;
+import com.payflow.payload.TransactionResponse;
 
 public interface TransactionService {
+
+    TransactionResponse transferMoney(TransactionDTO transactionDTO);
 }

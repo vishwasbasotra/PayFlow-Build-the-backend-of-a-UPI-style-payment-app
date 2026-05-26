@@ -1,10 +1,13 @@
 package com.payflow.entity;
 
+import com.payflow.payload.TransactionDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity(name = "User")
 @Table(name = "users")

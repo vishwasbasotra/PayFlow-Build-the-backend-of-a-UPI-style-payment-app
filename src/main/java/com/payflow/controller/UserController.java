@@ -20,13 +20,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/public/register")
+    @PostMapping("/users")
     public ResponseEntity<UserDTO> registerUser(@Valid @RequestBody UserDTO userDTO){
         UserDTO newUserDTO = userService.registerUser(userDTO);
         return new ResponseEntity<>(newUserDTO,HttpStatus.CREATED);
     }
 
-    @GetMapping("/public/users")
+    @GetMapping("/users")
     public ResponseEntity<UserResponse> getAllUsers(
             @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
             @RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
@@ -34,5 +34,11 @@ public class UserController {
             @RequestParam(name = "sortOrder", defaultValue = AppConstants.SORT_DIR, required = false) String sortOrder
     ){
         return new ResponseEntity<>(userService.getAllUsers(pageNumber, pageSize, sortBy, sortOrder), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<UserDTO> findUserByUserId(@PathVariable Long userId){
+        UserDTO userDTO = userService.findUserByUserId(userId);
+        return new ResponseEntity<>(userDTO, HttpStatus.FOUND);
     }
 }

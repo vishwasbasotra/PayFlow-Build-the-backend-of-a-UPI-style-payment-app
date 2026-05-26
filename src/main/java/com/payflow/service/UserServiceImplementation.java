@@ -2,6 +2,7 @@ package com.payflow.service;
 
 import com.payflow.entity.User;
 import com.payflow.exceptions.APIException;
+import com.payflow.exceptions.ResourceNotFoundException;
 import com.payflow.payload.UserDTO;
 import com.payflow.payload.UserResponse;
 import com.payflow.repository.UserRepository;
@@ -76,5 +77,19 @@ public class UserServiceImplementation implements UserService{
         userResponse.setLastPage(userPage.isLast());
 
         return userResponse;
+    }
+
+    @Override
+    public UserDTO findUserByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
+        return userToUserDTO(user);
+    }
+
+    @Override
+    public UserDTO findUserByUpiId(String userId) {
+        User user = userRepository.findByUpiId(userId);
+        if(user == null)    throw new APIException("User with userId: "+userId+" not found!");
+        return userToUserDTO(user);
     }
 }
