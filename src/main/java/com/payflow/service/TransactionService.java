@@ -1,4 +1,6 @@
 package com.payflow.service;
 
-public class TransactionService {
+import org.springframework.stereotype.Service;
+
+public interface TransactionService {
 }

@@ -1,19 +1,15 @@
-package com.payflow.entity;
+package com.payflow.payload;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "User")
-@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDTO {
+
     private Long userId;
 
     @NotBlank(message = "Name is required")
@@ -32,4 +28,5 @@ public class User {
     @NotBlank(message = "Phone Number is required")
     @Size(min=10, max=10, message = "Phone number should be 10 characters.")
     private String phoneNumber;
+
 }

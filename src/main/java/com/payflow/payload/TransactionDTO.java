@@ -1,16 +1,18 @@
-package com.payflow.entity;
+package com.payflow.payload;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "transactions")
-public class Transaction {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class TransactionDTO {
+
     private Long transactionId;
 
     @NotBlank(message = "UPI ID is required")
