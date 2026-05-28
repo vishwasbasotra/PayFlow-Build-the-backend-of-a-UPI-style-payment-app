@@ -14,6 +14,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionServiceImplementation implements TransactionService{
 
+    /*
+     * @Autowired Injection Explanation (What Spring does at startup):
+     * 1. Classpath Scanning: At startup, Spring searches all classes within the classpath under the main application's package
+     *    and identifies components annotated with @Service, @Repository, etc.
+     * 2. IoC Container Initialization: Spring manages the lifecycle of classes and creates singleton instances (Beans) inside 
+     *    the ApplicationContext IoC container. For this service, it creates a TransactionServiceImplementation bean, 
+     *    as well as bean implementations of TransactionRepository and UserRepository.
+     * 3. Dependency Injection (DI): Spring detects the @Autowired annotations on transactionRepository and userRepository.
+     *    It does a lookup by type in the container and automatically wires/injects the repository references into this
+     *    service bean, making them fully operational at runtime without manual creation or passing arguments.
+     */
     @Autowired
     private TransactionRepository transactionRepository;
 

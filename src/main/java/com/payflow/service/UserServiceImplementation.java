@@ -19,6 +19,19 @@ import java.util.List;
 @Service
 public class UserServiceImplementation implements UserService{
 
+    /*
+     * @Autowired Injection Explanation (What Spring does at startup):
+     * 1. Classpath Scanning: During application startup, Spring scans all packages under the root package
+     *    (where @SpringBootApplication is declared) to locate classes annotated with stereotype annotations
+     *    like @Component, @Service, @Repository, or @RestController.
+     * 2. Bean Creation & Lifecycle: Spring instantiates these classes as singleton Beans inside the 
+     *    ApplicationContext (Spring IoC Container). In this case, Spring instantiates the UserServiceImplementation
+     *    bean and the UserRepository bean (which is dynamically implemented by Spring Data JPA).
+     * 3. Dependency Injection (DI): When Spring detects the @Autowired annotation on the userRepository field,
+     *    it performs a lookup by type in the IoC container. It finds the created UserRepository bean and 
+     *    automatically injects (wires) its reference directly into this UserServiceImplementation bean.
+     *    This eliminates the need for manual 'new UserRepository()' initialization, decoupling our layers.
+     */
     @Autowired
     UserRepository userRepository;
 
@@ -87,9 +100,21 @@ public class UserServiceImplementation implements UserService{
     }
 
     @Override
-    public UserDTO findUserByUpiId(String userId) {
-        User user = userRepository.findByUpiId(userId);
-        if(user == null)    throw new APIException("User with userId: "+userId+" not found!");
+    public UserDTO findUserByUpiId(String upiId) {
+        User user = userRepository.findByUpiId(upiId);
+        if(user == null)    throw new APIException("User with UPI: "+upiId+" not found!");
+
         return userToUserDTO(user);
+    }
+
+    @Override
+    public List<UserDTO> findUsersWithBalanceGreaterThan(Double balance) {
+        List<User> users = userRepository.findUsersByBalanceGreaterThan(balance);
+        if (users.isEmpty()) {
+            throw new APIException("No users found with balance greater than: " + balance);
+        }
+        return users.stream()
+                .map(this::userToUserDTO)
+                .toList();
     }
 }

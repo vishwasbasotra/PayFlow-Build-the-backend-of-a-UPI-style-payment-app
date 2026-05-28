@@ -22,6 +22,6 @@ public class TransactionController {
     @PostMapping("/transactions")
     public ResponseEntity<TransactionResponse> transferMoney(@RequestBody TransactionDTO transactionDTO){
         TransactionResponse transactionResponse = transactionService.transferMoney(transactionDTO);
-        return new ResponseEntity<>(transactionResponse, HttpStatus.OK);
+        return new ResponseEntity<>(transactionResponse, HttpStatus.CREATED);
     }
 }

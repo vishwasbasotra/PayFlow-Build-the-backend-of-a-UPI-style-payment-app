@@ -39,6 +39,18 @@ public class UserController {
     @GetMapping("/users/{userId}")
     public ResponseEntity<UserDTO> findUserByUserId(@PathVariable Long userId){
         UserDTO userDTO = userService.findUserByUserId(userId);
-        return new ResponseEntity<>(userDTO, HttpStatus.FOUND);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/upi/{upiId}")
+    public ResponseEntity<UserDTO> findUserByUpiId(@PathVariable String upiId){
+        UserDTO userDTO = userService.findUserByUpiId(upiId);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/balance/greater-than")
+    public ResponseEntity<List<UserDTO>> findUsersWithBalanceGreaterThan(@RequestParam Double balance){
+        List<UserDTO> users = userService.findUsersWithBalanceGreaterThan(balance);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

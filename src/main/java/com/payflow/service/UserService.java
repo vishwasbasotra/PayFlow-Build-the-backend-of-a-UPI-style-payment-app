@@ -14,4 +14,6 @@ public interface UserService {
     UserDTO findUserByUserId(Long userId);
 
     UserDTO findUserByUpiId(String upiId);
+
+    List<UserDTO> findUsersWithBalanceGreaterThan(Double balance);
 }
